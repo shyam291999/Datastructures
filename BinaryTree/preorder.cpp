@@ -1,8 +1,10 @@
 #include<iostream>
-
 using namespace std;
 
-/* void preorder(Node);
+    
+
+/* This program contain code of all the three traversals
+void preorder(Node);
 void inorder(Node);
 void postorder(Node);*/
 
