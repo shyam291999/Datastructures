@@ -1,0 +1,106 @@
+//undirected graph
+//question link
+// https://practice.geeksforgeeks.org/problems/detect-cycle-in-an-undirected-graph/1#
+
+#include<bits/stdc++.h>
+using namespace std;
+
+
+bool detectcycle(int src,vector<vector<int>> &adj,vector<int> &vis)
+{
+        vis[src] = true;
+        queue<pair<int,int>>q;
+        q.push({src,-1});
+        
+        while(!q.empty())
+        {
+            int node = q.front().first;
+            int parent = q.front().second;
+            q.pop();
+            for(auto it: adj[node])
+            {
+                if(!vis[it])
+                {
+                    q.push({it,node});
+                    vis[it] = true;
+                }
+                else if(it != parent) return true;
+            }
+        }
+    return false;   
+}
+
+bool iscycle(int n, vector<vector<int>> &adj) {
+        // Code here
+        vector<int> vis(n+1,0);
+        for(int i = 0;i<n;i++)
+        {
+            if(!vis[i])
+            {
+                if(detectcycle(i,adj,vis)) return true;
+            }
+        }
+    return false;
+}
+
+int main()
+{
+    int n,m;
+    cin>>n>>m;
+    vector<vector<int>> adj(n+1);
+    for(int i=0;i<m;i++)
+    {
+        int u,v;
+        cin>>u>>v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+    bool ans;
+    ans = iscycle(n,adj);
+    //cout<<ans;
+    if(ans) cout<<"cycle present "<<endl;
+    else cout<<"No cycle "<<endl;
+return 0;
+}
+
+
+
+
+//  bool detectcycle(int src,vector<int> adj[],vector<int> &vis)
+// {
+//         vis[src] = true;
+//         queue<pair<int,int>>q;
+//         q.push({src,-1});
+        
+//         while(!q.empty())
+//         {
+//             int node = q.front().first;
+//             int parent = q.front().second;
+//             q.pop();
+//             for(auto it: adj[node])
+//             {
+//                 if(!vis[it])
+//                 {
+//                     q.push({it,node});
+//                     vis[it] = true;
+//                 }
+//                 else if(it != parent) return true;
+//             }
+//         }
+//     return false;   
+// }
+//   public:
+//     // Function to detect cycle in an undirected graph.
+    
+//     bool isCycle(int n, vector<int> adj[]) {
+//         // Code here
+//         vector<int> vis(n+1,0);
+//         for(int i = 0;i<n;i++)
+//         {
+//             if(!vis[i])
+//             {
+//                 if(detectcycle(i,adj,vis)) return true;
+//             }
+//         }
+//     return false;
+//     }
