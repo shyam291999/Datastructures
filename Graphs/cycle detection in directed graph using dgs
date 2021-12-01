@@ -1,0 +1,121 @@
+//detect cycle in directed graph using dfs
+#include<bits/stdc++.h>
+using namespace std;
+
+
+bool detectcycle(int src,vector<vector<int>> &adj,vector<int> &visit)
+{
+   visit[src] = 2;
+
+   for(auto it: adj[src])
+   {
+       if(visit[it] == 0) 
+       {
+           if(detectcycle(it,adj,visit)) return true;
+       }
+       else if( visit[it] == 2) return true;
+   }
+visit[src] = 1;
+return false;
+}
+
+bool iscycle(int n,vector<vector<int>> &adj)
+{
+    vector<int> visit(n,0);
+    for(int i = 0;i<n;i++)
+    {
+        if(!visit[i])
+        {
+            if(detectcycle(i,adj,visit)) return true;
+        }
+    }
+return false;
+}
+
+int main()
+{
+    int n,m;
+    cin>>n>>m;
+    vector<vector<int>> adj(n+1);
+    for(int i = 0;i<m;i++)
+    {
+        int u,v;
+        cin>>u>>v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+   
+    bool f;
+    f = iscycle(n,adj);    
+    if(f) cout<<1;
+    else cout<<0;
+return 0;
+}
+
+
+
+// /taking two visited array 
+// bool detectcycle(int src,vector<int> adj[],int v1[],int v2[])
+//     {
+//         v1[src] = 1;
+//         v2[src] = 1;
+        
+//         for(auto it: adj[src])
+//         {
+//             if(!v1[it])
+//             {
+//                 if(detectcycle(it,adj,v1,v2)) return true;
+//             }
+//             else if(v2[it]) return true;
+//         }
+//     v2[src] =0;
+//     return false;
+//     }
+    
+//     bool isCyclic(int n, vector<int> adj[])
+//     {
+//         // code here
+//         int v1[n],v2[n];
+//         memset(v1,0,sizeof(v1));
+//         memset(v2,0,sizeof(v2));
+//         for(int i = 0;i<n;i++)
+//         {
+//             if(!v1[i])
+//             {
+//                 if(detectcycle(i,adj,v1,v2)) return true;
+//             }
+//         }
+//     return false;
+//     }
+
+
+// taking one visited array
+// bool detectcycle(int src,vector<int> adj[],vector<int> &vis)
+//     {
+//         vis[src] = 2;
+        
+//         for(auto it: adj[src])
+//         {
+//             if(vis[it] == 0)
+//             {
+//                 if(detectcycle(it,adj,vis)) return true;
+//             }
+//             else if(vis[it] == 2) return true;
+//         }
+//     vis[src] = 1;
+//     return false;
+//     }
+    
+//     bool isCyclic(int n, vector<int> adj[])
+//     {
+//         // code here
+//         vector<int> vis(n,0);
+//         for(int i = 0;i<n;i++)
+//         {
+//             if(!vis[i])
+//             {
+//                 if(detectcycle(i,adj,vis)) return true;
+//             }
+//         }
+//     return false;
+//     }
