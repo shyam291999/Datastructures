@@ -1,11 +1,12 @@
+
+//question link
+// https://practice.geeksforgeeks.org/problems/detect-cycle-in-an-undirected-graph/1#
+/// for undirected graph;
+
 #include<bits/stdc++.h>
 using namespace std;
 vector<int> vist(1000005,0);
 
-//question link
-// https://practice.geeksforgeeks.org/problems/detect-cycle-in-an-undirected-graph/1#
-
-/// for undirected graph;
 bool checkforcycle(int src,vector<vector<int>>& adj,int parent)
 {
     vist[src] = 1;
