@@ -1,0 +1,50 @@
+ //question link https://www.geeksforgeeks.org/minimum-steps-to-reach-end-from-start-by-performing-multiplication-and-mod-operations-with-array-elements/
+
+#include<bits/stdc++.h>
+using namespace std;
+
+
+int minsteptoreachend(int n,int arr[],int start,int end)
+{
+    int ans[100001];
+    memset(ans,-1,sizeof(ans));
+    int mod = 100000;
+
+    ans[start] = 0;
+    queue<int> q;
+    q.push(start % mod);
+    
+    while (!q.empty())
+    {
+        int top = q.front();
+        q.pop();
+        if(top == end) return ans[end];
+
+        for(int i=0;i<n;i++){
+            int pushed = top*arr[i];
+            pushed = pushed % mod;
+
+            if(ans[pushed] == -1){
+                ans[pushed] = ans[top]+1;
+                q.push(pushed);
+            } 
+        }
+    }
+ return -1;     
+}
+int main()
+{
+    int n,start,end;
+    cin>>n>>start>>end;
+    int arr[n];
+    for(int i=0;i<n;i++) cin>>arr[i];
+    int result = minsteptoreachend(n,arr,start,end);
+    cout<<result<<endl;
+
+return 0;
+}
+
+// input 
+// 3 
+// 7 66175
+// 3 4 65  output = 4;
