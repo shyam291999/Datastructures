@@ -1,0 +1,45 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+bool canplacecows(int a[],int n,int cows,int dist){
+    int coordinate = a[0];
+    int count = 1;
+    for(int i=1;i<n;i++){             //tc will be logN * N of this program
+        if(a[i]-coordinate >= dist){  // N for this loop and logN for binary search
+            count++;
+            coordinate = a[i];
+        }
+        if(cows == count){
+            return true;
+        }
+    } 
+return false;
+}
+
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--){
+        int n,cows,res;
+        cin>>n>>cows;
+        int a[n];
+        for(int i=0;i<n;i++) cin>>a[i];
+        sort(a,a+n);
+        int low = 0, high = a[n-1] - a[0];
+
+        while(low <= high)
+        {
+            int mid = (low + high) >> 1;
+            if(canplacecows(a,n,cows,mid)){
+                res = mid;
+                low = mid+1;
+            } 
+            else{
+                high = mid -1 ;
+            }
+        }
+    cout<<res<<endl;
+    }
+return 0;
+}
